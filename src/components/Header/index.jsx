@@ -5,9 +5,17 @@ export default class Header extends Component {
     handleKeyUp = (event) => {
         const { keyCode, target } = event;
         if (keyCode !== 13) {
+            // 13 is the keycode for return
             return;
         }
-        console.log(target.value);
+
+        // pass the new todo item to App component
+        const newTodo = {
+            id: "005",
+            name: target.value,
+            done: false,
+        };
+        this.props.addTodo(newTodo);
     };
 
     render() {

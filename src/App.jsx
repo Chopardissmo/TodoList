@@ -14,12 +14,21 @@ export default class App extends Component {
         ],
     };
 
+    addTodo = (todoObj) => {
+        // get the origial todos
+        const { todos } = this.state;
+        // shift the new todoObj to its head
+        const newTodos = [todoObj, ...todos];
+        // update the view
+        this.setState({ todos: newTodos });
+    };
+
     render() {
         const { todos } = this.state;
         return (
             <div className="todo-container">
                 <div className="todo-wrap">
-                    <Header />
+                    <Header addTodo={this.addTodo} />
                     <List todos={todos} />
                     <Footer />
                 </div>
