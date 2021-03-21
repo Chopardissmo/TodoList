@@ -20,9 +20,10 @@ export default class Item extends Component {
     };
     // callback function-non curring implementation
     handleDelete = (id) => {
-        console.log(`delete ${id}`);
         const { deleteTodo } = this.props;
-        deleteTodo(id);
+        if (window.confirm("R u sure to delete this item?")) {
+            deleteTodo(id);
+        }
     };
     render() {
         const { id, name, done: isFinished } = this.props;
@@ -36,7 +37,7 @@ export default class Item extends Component {
                 <label>
                     <input
                         type="checkbox"
-                        defaultChecked={isFinished}
+                        checked={isFinished}
                         onChange={this.handleCheck(id)}
                     />
                     <span>{name}</span>
