@@ -2,15 +2,50 @@ import React, { Component } from "react";
 import "./index.css";
 
 export default class Item extends Component {
+    state = {
+        mouse: false,
+    };
+    handleMouse = (flag) => {
+        return () => {
+            this.setState({ mouse: flag });
+        };
+    };
+    // callback function-curring implementation
+    handleCheck = (id) => {
+        return (event) => {
+            const { checkTodo } = this.props;
+            //console.log(id, event.target.checked);
+            checkTodo(id, event.target.checked);
+        };
+    };
+    // callback function-non curring implementation
+    handleDelete = (id) => {
+        console.log(`delete ${id}`);
+        const { deleteTodo } = this.props;
+        deleteTodo(id);
+    };
     render() {
-        const { name, done: isFinished } = this.props;
+        const { id, name, done: isFinished } = this.props;
+        const { mouse } = this.state;
         return (
-            <li>
+            <li
+                onMouseLeave={this.handleMouse(false)}
+                onMouseEnter={this.handleMouse(true)}
+                style={{ backgroundColor: mouse ? "#ddd" : "white" }}
+            >
                 <label>
-                    <input type="checkbox" defaultChecked={isFinished} />
+                    <input
+                        type="checkbox"
+                        defaultChecked={isFinished}
+                        onChange={this.handleCheck(id)}
+                    />
                     <span>{name}</span>
                 </label>
-                <button className="btn btn-danger" style={{ display: "none" }}>
+                <button
+                    className="btn btn-danger"
+                    style={{ display: mouse ? "block" : "none" }}
+                    onClick={() => this.handleDelete(id)}
+                >
                     删除
                 </button>
             </li>

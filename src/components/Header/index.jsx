@@ -1,21 +1,29 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { nanoid } from "nanoid";
 import "./index.css";
 
 export default class Header extends Component {
+    static propTypes = {
+        addTodo: PropTypes.func.isRequired,
+    };
     handleKeyUp = (event) => {
         const { keyCode, target } = event;
         if (keyCode !== 13) {
             // 13 is the keycode for return
             return;
         }
-
-        // pass the new todo item to App component
+        if (target.value.trim() === "") {
+            return;
+        }
         const newTodo = {
-            id: "005",
+            id: nanoid(),
             name: target.value,
             done: false,
         };
+        // pass the new todo item to App component
         this.props.addTodo(newTodo);
+        target.value = "";
     };
 
     render() {
