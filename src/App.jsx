@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { nanoid } from "nanoid";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import List from "./components/List";
@@ -7,17 +8,18 @@ import "./App.css";
 export default class App extends Component {
     state = {
         todos: [
-            { id: "001", name: "eat", done: false },
-            { id: "002", name: "sleep", done: true },
-            { id: "003", name: "coding", done: false },
-            { id: "004", name: "shopping", done: true },
+            { id: nanoid(), name: "eat", done: false },
+            { id: nanoid(), name: "sleep", done: true },
+            { id: nanoid(), name: "coding", done: false },
+            { id: nanoid(), name: "shopping", done: true },
         ],
     };
 
+    //状态在哪里，操作状态的方法就在那里
     addTodo = (todoObj) => {
         // get the origial todos
         const { todos } = this.state;
-        // shift the new todoObj to its head
+        // add the new todoObj to its head
         const newTodos = [todoObj, ...todos];
         // update the view
         this.setState({ todos: newTodos });

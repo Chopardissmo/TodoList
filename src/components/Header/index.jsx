@@ -21,7 +21,7 @@ export default class Header extends Component {
             name: target.value,
             done: false,
         };
-        // pass the new todo item to App component
+        // pass the new todoObj from item(child) to App(parent) component
         this.props.addTodo(newTodo);
         target.value = "";
     };

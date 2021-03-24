@@ -5,19 +5,28 @@ export default class Item extends Component {
     state = {
         mouse: false,
     };
+
     handleMouse = (flag) => {
         return () => {
             this.setState({ mouse: flag });
         };
     };
-    // callback function-curring implementation
+
+    //! callback function - curring implementation
+    //! onChange={this.handleCheck(id)}
     handleCheck = (id) => {
         return (event) => {
             const { checkTodo } = this.props;
-            //console.log(id, event.target.checked);
             checkTodo(id, event.target.checked);
         };
     };
+    //! callback function - non curring implementation
+    //! onChange={(event) => {this.handleCheck(id, event)}}
+    // handleCheck = (id, e) => {
+    //     const { checkTodo } = this.props;
+    //     checkTodo(id, e.target.checked);
+    // };
+
     // callback function-non curring implementation
     handleDelete = (id) => {
         const { deleteTodo } = this.props;
@@ -25,6 +34,7 @@ export default class Item extends Component {
             deleteTodo(id);
         }
     };
+
     render() {
         const { id, name, done: isFinished } = this.props;
         const { mouse } = this.state;
