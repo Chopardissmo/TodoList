@@ -18,7 +18,7 @@ export default class Header extends Component {
         }
         const newTodo = {
             id: nanoid(),
-            name: target.value,
+            name: target.value.trim(),
             done: false,
         };
         // pass the new todoObj from item(child) to App(parent) component
